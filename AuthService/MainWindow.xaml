@@ -79,9 +79,10 @@
         <Menu x:Name="mainMenu" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
         <DataGrid x:Name ="gridData" Background="Gray" Margin="20"  Padding="20" 
                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="10" Grid.ColumnSpan="3" 
-                  AutoGenerateColumns="True" BorderBrush="Transparent" />
+                  AutoGenerateColumns="True" BorderBrush="Transparent" PreviewKeyDown="gridData_PreviewKeyDown"/>
+
         <StackPanel x:Name="panelTable" Grid.Row="1" Grid.Column="3" Grid.RowSpan="10" Margin="20" Background="Gray"/>
-        <Button x:Name="buttonChange" Grid.Column="0" Grid.Row="12" Content  ="Confirm"  Click="Button_Click" Uid="Confirm"/>
+        <Button x:Name="buttonChange" Grid.Column="0" Grid.Row="12" Content  ="Update"   Click="Button_Click" Uid="Update"/>
         <Button x:Name="buttonAdd" Grid.Column="1" Grid.Row="12" Content     ="Add"      Click="Button_Click" Uid="Add"/>
         <Button x:Name="buttonDelete" Grid.Column="2" Grid.Row="12" Content  ="Delete"   Click="Button_Click" Uid="Delete"/>
         <Button x:Name="buttonFormDocs" Grid.Column="3" Grid.Row="12" Content="Document" Click="Button_Click" Uid="FormDoc"/>

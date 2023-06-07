@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -31,7 +32,7 @@ namespace AuthService
         {
             Label label = new Label() { Content = x };
             panelTable.Children.Add(label);
-            TextBox textBox = new TextBox() { Name = $"textbox{x}", TextAlignment = TextAlignment.Center};
+            TextBox textBox = new TextBox() { Name = $"textbox{x}", TextAlignment = TextAlignment.Center };
             if (x != header)
                 panelTable.Children.Add(textBox);
         }
@@ -42,13 +43,13 @@ namespace AuthService
             if (Data.tables.Contains(mi.Header))
             {
                 gridData.ItemsSource = "";
-                Data.choosedTable = mi.Header.ToString().ToLower();
+                Data.choosedTable = mi.Header.ToString();
                 switch (mi.Header.ToString())
                 {
                     case "Service":
                         DataTable.serviceList.ForEach(x =>
                         {
-                            StackPanelTableTranslationData(x, mi.Header.ToString()); 
+                            StackPanelTableTranslationData(x, mi.Header.ToString());
                         });
                         PostgresConnection.SelectAllFromTable(Data.choosedTable);
                         gridData.ItemsSource = Data.services;
@@ -123,24 +124,54 @@ namespace AuthService
 
             AutorizationPage();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             if (Data.adminRights == false) // Here is must be "true"
             {
-                if (button.Uid == "Confirm")
+                if (button.Uid == "Update")
                 {
-                    MessageBox.Show($"Change is clicked", "Hehehe");
+                    try
+                    {
+                        PostgresConnection.UpdateRowTable(gridData.SelectedItem);
+                        PostgresConnection.SelectAllFromTable(Data.choosedTable);
+
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Something goes wrong..\n It may happend after you chande id-field", "Attention");
+
+                    }
                 }
                 else if (button.Uid == "Add")
                 {
-                    MessageBox.Show("Add is clicked", "Hehehe");
+                    try
+                    {
+                        PostgresConnection.AddToTable();
+                        PostgresConnection.SelectAllFromTable(Data.choosedTable);
+                        MessageBox.Show("The data is added", "Attention");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Something goes wrong...", "Woops!");
+                        PostgresConnection.SelectAllFromTable(Data.choosedTable);
+                    }
 
                 }
                 else if (button.Uid == "Delete")
                 {
-                    MessageBox.Show("Delete is clicked", "Hehehe");
+                    try
+                    {
+                        PostgresConnection.DeleteFromTable(gridData.SelectedItem);
+                        PostgresConnection.SelectAllFromTable(Data.choosedTable);
+                        gridData.Items.Refresh();
+                        MessageBox.Show("The data is deleted", "Attention");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Something goes wrong...", "Woops!");
+                        PostgresConnection.SelectAllFromTable(Data.choosedTable);
+                    }
                 }
                 else if (button.Uid == "FormDoc" && Data.choosedTable == "order")
                 {
@@ -148,11 +179,72 @@ namespace AuthService
                 }
             }
         }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             PostgresConnection.connection.Close();
-            Console.WriteLine("Something");
         }
+        private void gridData_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Delete)
+            {
+                try
+                {
+                    PostgresConnection.DeleteFromTable(gridData.SelectedItem);
+                    PostgresConnection.SelectAllFromTable(Data.choosedTable);
+                    gridData.Items.Refresh();
+                    MessageBox.Show("The data is deleted", "Attention");
+                }
+                catch (Exception) { MessageBox.Show("Something goes wrong...", "Woops!"); }
+            }
+        }
+
+
+
+
+
+
+
+        // ------------ UNUSED --------------
+        private void DeleteSelectedItem()
+        {
+            var selectedItem = gridData.SelectedItem;
+            if (selectedItem is Service)
+            {
+                Data.services.Remove(selectedItem as Service);
+            }
+            if (selectedItem is Order)
+            {
+                Data.orders.Remove(selectedItem as Order);
+            }
+            gridData.Items.Refresh();
+        }
+
+        //private void GlobalSwitch()
+        //{
+        //    switch (Data.choosedTable)
+        //    {
+        //        case "Service":
+        //            MessageBox.Show("Hehe", "hehe");
+        //            break;
+        //        case "Order":
+
+        //            break;
+        //        case "Car":
+
+        //            break;
+        //        case "Employee":
+
+        //            break;
+        //        case "Position":
+
+        //            break;
+        //        case "Client":
+
+        //            break;
+        //        default:
+        //            break;
+        //    }
+
+        //}
     }
 }
