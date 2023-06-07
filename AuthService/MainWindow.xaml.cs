@@ -152,6 +152,7 @@ namespace AuthService
         private void Window_Closed(object sender, EventArgs e)
         {
             PostgresConnection.connection.Close();
+            Console.WriteLine("Something");
         }
     }
 }
