@@ -165,8 +165,6 @@ namespace AuthService
             using (var cmd = new NpgsqlCommand($"SELECT*FROM w.{tableName}", connection))
             {
                 var reader = cmd.ExecuteReader();
-
-                // Долбоёб ничего не допилил
                 switch (tableName)
                 {
                     case "Service":

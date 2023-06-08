@@ -173,6 +173,10 @@ namespace AuthService
                         PostgresConnection.SelectAllFromTable(Data.choosedTable);
                     }
                 }
+                else if (button.Uid == "Find")
+                {
+                    // Придумать, как наебать систему и сделать реюз кода из Postgres.SelectAllFromTable(Data.choosedTable);
+                }
                 else if (button.Uid == "FormDoc" && Data.choosedTable == "order")
                 {
                     MessageBox.Show("Test", "hehe");
