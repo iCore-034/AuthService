@@ -8,12 +8,12 @@ namespace AuthService
 {
     public class DataTable
     {
-        public static List<string> serviceList = new List<string>() { "Service", "Id", "Name", "Cost" };
-        public static List<string> carList = new List<string>() { "Car", "Id", "Brand", "Model", "Color", "RegNum", "VinNum", "ClientID" };
-        public static List<string> orderList = new List<string>() { "Order", "Id", "Cost", "EmployeeID", "CarID", "ServiceID" };
-        public static List<string> employeeList = new List<string>() { "Employee", "Id", "Name", "SecondName", "Phone", "BirthDate", "RecDate", "PositionID" };
-        public static List<string> positonList = new List<string>() { "Position", "Id", "Name", "Salary" };
-        public static List<string> clientList = new List<string>() { "Client", "Id", "Name", "SecondName", "Surname", "Phone" };
+        public static List<string> serviceList = new List<string>() { "Service", "id", "name", "cost" };
+        public static List<string> carList = new List<string>() { "Car", "id", "brand", "model", "color", "regnum", "vinnum", "client_id" };
+        public static List<string> orderList = new List<string>() { "Order", "id","ord_date", "cost", "employee_id", "car_id", "service_id" };
+        public static List<string> employeeList = new List<string>() { "Employee", "id", "name", "secondname", "phone", "birthdate", "recdate", "positionid" };
+        public static List<string> positonList = new List<string>() { "Position", "id", "name", "salary" };
+        public static List<string> clientList = new List<string>() { "Client", "id", "name", "secondname", "surname", "phone" };
 
     }
     public interface IdExisting

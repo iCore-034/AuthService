@@ -160,9 +160,14 @@ namespace AuthService
                     break;
             }
         }
-        public static void SelectAllFromTable(string tableName)
+        public static void SelectAllFromTable(string tableName, string addCommand)
         {
-            using (var cmd = new NpgsqlCommand($"SELECT*FROM w.{tableName}", connection))
+            string command = $"SELECT*FROM w.{tableName} ";
+            if (addCommand != "")
+            {
+                command += addCommand;
+            }
+            using (var cmd = new NpgsqlCommand(command, connection))
             {
                 var reader = cmd.ExecuteReader();
                 switch (tableName)
@@ -257,6 +262,12 @@ namespace AuthService
                 }
                 reader.Close();
             }
+        }
+
+        public static void CreateDocument(Order order)
+        {
+            var cmd = new NpgsqlCommand("", connection);
+            // Допилить формирование документа
         }
     }
 }

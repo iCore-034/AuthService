@@ -27,6 +27,7 @@ namespace AuthService
         public static List<Car>      cars      = new List<Car>();
         public static List<Employee> employees = new List<Employee>();
 
-        public static bool i = false;
+        public static string attentionBox = "Something goes wrong..";
+        public static string attention = "Attention!";
     }
 }
