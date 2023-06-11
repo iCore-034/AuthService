@@ -29,10 +29,5 @@ namespace AuthService
 
         public static string attentionBox = "Something goes wrong..";
         public static string attention = "Attention!";
-
-        public static void Func()
-        {
-            Console.WriteLine("Hello");
-        }
     }
 }
