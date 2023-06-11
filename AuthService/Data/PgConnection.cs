@@ -1,6 +1,10 @@
 ﻿using Npgsql;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AuthService
@@ -266,8 +270,38 @@ namespace AuthService
 
         public static void CreateDocument(Order order)
         {
-            var cmd = new NpgsqlCommand("", connection);
-            // Допилить формирование документа
+            List<string> fileData = new List<string>();
+            SelectAllFromTable("Car", $"WHERE id = {order.CarID}");
+            SelectAllFromTable("Client", $"WHERE id = {Data.cars.FirstOrDefault().ClientID}");
+            SelectAllFromTable("Service", $"WHERE id = {order.ServiceID}");
+            SelectAllFromTable("Employee", $"WHERE id = {order.EmployeeID}");
+
+            fileData.Add(order.OrderDate.ToString());
+            fileData.Add(order.ID.ToString());
+
+            fileData.Add(Data.clients.FirstOrDefault().Name + " " + Data.clients.FirstOrDefault().SecondName + " " + Data.clients.FirstOrDefault().SurName);
+            fileData.Add(Data.clients.FirstOrDefault().Phone.ToString());
+
+            fileData.Add(Data.cars.FirstOrDefault().Brand);
+            fileData.Add(Data.cars.FirstOrDefault().Model);
+            fileData.Add(Data.cars.FirstOrDefault().RegNum.ToString());
+            fileData.Add(Data.cars.FirstOrDefault().VinNum.ToString());
+
+            fileData.Add(Data.services.FirstOrDefault().Name);
+            fileData.Add(order.Cost.ToString());
+
+            fileData.Add(Data.employees.FirstOrDefault().Name + " " + Data.employees.FirstOrDefault().SecondName);
+            fileData.Add(Data.employees.FirstOrDefault().RecDate.ToString());
+
+            string template = File.ReadAllText("C:\\Users\\Romanticore\\source\\repos\\AuthService\\AuthService\\Data\\index.html");
+            string[] templateSplit = template.Split('*');
+            template = "";
+            for (int i = 0; i < templateSplit.Length - 1; i++)
+            {
+                template += templateSplit[i] + fileData[i];
+            }
+            template += templateSplit[templateSplit.Length - 1];
+            File.WriteAllText($"Order_{order.ID}.html", template);
         }
     }
 }

@@ -128,8 +128,7 @@ namespace AuthService
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            if (Data.adminRights == true)
-            {
+            if (Data.adminRights == true)            {
                 if (button.Uid == "Update")
                 {
                     try
@@ -143,6 +142,7 @@ namespace AuthService
                         MessageBox.Show($"{Data.attentionBox}\n It may happend after you chande id-field", Data.attention);
 
                     }
+                    gridData.Items.Refresh();
                 }
                 else if (button.Uid == "Add")
                 {
@@ -157,7 +157,7 @@ namespace AuthService
                         MessageBox.Show(Data.attentionBox, Data.attention);
                         PostgresConnection.SelectAllFromTable(Data.choosedTable, "");
                     }
-
+                    gridData.Items.Refresh();
                 }
                 else if (button.Uid == "Delete")
                 {
@@ -165,7 +165,6 @@ namespace AuthService
                     {
                         PostgresConnection.DeleteFromTable(gridData.SelectedItem);
                         PostgresConnection.SelectAllFromTable(Data.choosedTable, "");
-                        gridData.Items.Refresh();
                         MessageBox.Show("The data is deleted", Data.attention);
                     }
                     catch (Exception)
@@ -173,6 +172,7 @@ namespace AuthService
                         MessageBox.Show(Data.attentionBox, Data.attention);
                         PostgresConnection.SelectAllFromTable(Data.choosedTable, "");
                     }
+                    gridData.Items.Refresh();
                 }
                 else if (button.Uid == "Find")
                 {
@@ -210,19 +210,27 @@ namespace AuthService
                         if (addcommand != "")
                         {
                             PostgresConnection.SelectAllFromTable(Data.choosedTable, addcommand);
-                            gridData.Items.Refresh();
                         }
                     }
                     catch (Exception)
                     {
                         MessageBox.Show(Data.attentionBox, Data.attention);
                     }
+                    gridData.Items.Refresh();
                 }
                 else if (button.Uid == "FormDoc")
                 {
                     if (gridData.SelectedItem is Order)
                     {
-                        MessageBox.Show("The document is created", Data.attention);
+                        try
+                        {
+                            PostgresConnection.CreateDocument(gridData.SelectedItem as Order);
+                            MessageBox.Show("The document is created", Data.attention);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(Data.attentionBox, Data.attention);
+                        }
                     }
                 }
             }

@@ -12,7 +12,14 @@ namespace AuthService
 {
     internal class Data
     {
-        public static List<string> tables = new List<string>() { "Order", "Service", "Car", "Client", "Employee", "Position", };
+        public static List<string> tables = new List<string>() { 
+            "Order", 
+            "Service", 
+            "Car", 
+            "Client", 
+            "Employee", 
+            "Position"
+        };
         public static string jsonPath = "roles.json";
         public static bool AuthSuccess = true;
         public static List<Roles> roles = null;
@@ -28,6 +35,6 @@ namespace AuthService
         public static List<Employee> employees = new List<Employee>();
 
         public static string attentionBox = "Something goes wrong..";
-        public static string attention = "Attention!";
+        public static string attention    = "Attention!";
     }
 }
