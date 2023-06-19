@@ -23,4 +23,7 @@ https://github.com/iCore-034/AuthService/assets/63407898/0cd82499-bbf7-44e4-9295
 <h1>Установка прав администратора (возможность изменение БД)</h1>
 <div></div>https://github.com/iCore-034/AuthService/assets/63407898/070f7bfd-9eb3-4c51-a917-db2231235d6f
 </div>
-<h1></h1>
+<h1>Формирование документа</h1>
+<div>Для формирования документа в папке проекта находится шаблон index.html, путь к нему также необходимо изменить
+[image](https://github.com/iCore-034/AuthService/assets/63407898/d764affb-250e-426f-8238-63d7a1fb6d73)
+</div>
