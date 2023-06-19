@@ -21,6 +21,6 @@
 <div>Перед началом использование необходимо в коде программы изменить путь подключения к базе данных</div>
 <div>![image](https://github.com/iCore-034/AuthService/assets/63407898/ff6180f7-de7c-4fd9-ba89-a7cbc268c882)</div>
 <h1>Установка прав администратора (возможность изменение БД)</h1>
-<div>![image](https://github.com/iCore-034/AuthService/assets/63407898/070f7bfd-9eb3-4c51-a917-db2231235d6f)
+<div>(https://github.com/iCore-034/AuthService/assets/63407898/070f7bfd-9eb3-4c51-a917-db2231235d6f)
 </div>
 <h1></h1>
