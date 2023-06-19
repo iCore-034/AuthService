@@ -1,1 +1,4 @@
-# AuthService
+Конфигурация: 
+<li>
+  <ol>.NET 7.0</ol>
+</li>
